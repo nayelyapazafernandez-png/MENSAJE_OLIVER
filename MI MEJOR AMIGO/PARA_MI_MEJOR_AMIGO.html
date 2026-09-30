@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Especial para Oliver Eloy Mayta</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .app-screen {
+      width: 100%;
+      max-width: 400px;
+      height: 720px;
+      background-color: #dceefb;
+      background-image: 
+        linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      position: relative;
+      overflow-y: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .checkered-top {
+      height: 35px;
+      background-image: repeating-linear-gradient(
+        45deg,
+        #0a2540 0, #0a2540 15px,
+        #ffffff 15px, #ffffff 30px
+      );
+      width: 100%;
+    }
+
+    .views {
+      display: none;
+      padding: 20px;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: calc(100% - 35px);
+    }
+
+    .views.active {
+      display: flex;
+    }
+
+    .pin-boxes {
+      display: flex;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .pin-card {
+      width: 50px;
+      height: 50px;
+      background: #ffff70;
+      border: 2px solid #333;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .keypad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 85%;
+      margin-top: 15px;
+    }
+
+    .keypad-grid button {
+      background: #0052cc;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 10px;
+      box-shadow: 0 4px 0 #003380;
+      cursor: pointer;
+    }
+
+    .keypad-grid button.btn-control {
+      background: #e60000;
+      box-shadow: 0 4px 0 #990000;
+    }
+
+    .keypad-grid button:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #003380;
+    }
+
+    .keychain-heart {
+      background: #73c2fb;
+      border: 6px solid #bbe2fe;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      padding: 30px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      margin: 40px 0;
+      position: relative;
+    }
+
+    .keychain-heart p {
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .blister-card {
+      background: #ffffff;
+      border: 4px solid #e60000;
+      border-radius: 20px;
+      width: 100%;
+      padding: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .blister-header {
+      background: #e60000;
+      color: #ffeb3b;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 28px;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .blister-info {
+      background: #fff8d6;
+      border: 2px dashed #ff9800;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .heart-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 15px;
+    }
+
+    .heart-btn {
+      width: 60px;
+      height: 60px;
+      background: #e1f5fe;
+      border: 2px solid #0288d1;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .flame-box {
+      background: #fffde7;
+      border: 3px solid #ff9800;
+      border-radius: 12px;
+      padding: 15px;
+      width: 100%;
+      margin-bottom: 15px;
+      text-align: left;
+      position: relative;
+    }
+
+    .flame-box::before {
+      content: "🔥";
+      position: absolute;
+      top: -12px;
+      right: 10px;
+    }
+
+    .btn-main {
+      background: #0052cc;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #002b80;
+      margin-top: 10px;
+    }
+
+    .btn-back {
+      background: #0052cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-screen">
+  <div class="checkered-top"></div>
+
+  <!-- VISTA 1: PANTALLA DE CONTRASEÑA -->
+  <div id="view-lock" class="views active">
+    <div style="background: #e60000; color: #ffeb3b; font-weight: bold; font-style: italic; padding: 5px 20px; border-radius: 15px; font-size: 20px; margin-bottom: 10px;">
+      Hot Wheels
+    </div>
+
+    <!-- Candado 🔒 -->
+    <div style="font-size: 60px; margin: 10px 0;">🔒</div>
+
+    <h4 style="color: #003366; margin: 5px 0;">Ingresa la contraseña</h4>
+
+    <div class="pin-boxes">
+      <div class="pin-card" id="b1"></div>
+      <div class="pin-card" id="b2"></div>
+      <div class="pin-card" id="b3"></div>
+      <div class="pin-card" id="b4"></div>
+    </div>
+
+    <div class="keypad-grid">
+      <button onclick="addPin('1')">1</button>
+      <button onclick="addPin('2')">2</button>
+      <button onclick="addPin('3')">3</button>
+      <button onclick="addPin('4')">4</button>
+      <button onclick="addPin('5')">5</button>
+      <button onclick="addPin('6')">6</button>
+      <button onclick="addPin('7')">7</button>
+      <button onclick="addPin('8')">8</button>
+      <button onclick="addPin('9')">9</button>
+      <button class="btn-control" onclick="clearPin()">C</button>
+      <button onclick="addPin('0')">0</button>
+      <button class="btn-control" onclick="backspacePin()">⌫</button>
+    </div>
+  </div>
+
+  <!-- VISTA 2: LLAVERO -->
+  <div id="view-keychain" class="views">
+    <div style="font-size: 120px; margin-top: 100px;">🏎‍</div>
+    <div class="keychain-heart">
+      <p>Aunque la distancia exista, nunca te dejaré ser espectador.</p>
+      <div style="background: #e60000; color: #ffeb3b; font-size: 10px; font-weight: bold; display: inline-block; padding: 2px 8px; border-radius: 8px; margin-top: 10px;">
+        Hot Wheels
+      </div>
+    </div>
+
+    <button class="btn-main" onclick="showView('view-blister')">VER SORPRESA</button>
+  </div>
+
+  <!-- VISTA 3: BLÍSTER PRINCIPAL -->
+  <div id="view-blister" class="views">
+    <p style="color: #003366; font-weight: bold; margin-bottom: 10px;">Tengo esto para ti....</p>
+    
+    <div class="blister-card">
+      <div class="blister-header">Hot Wheels</div>
+      
+      <div class="blister-info">
+        <p><strong>De:</strong> Tu Mejor Amiga</p>
+        <p><strong>Para:</strong> Oliver E. M.</p>
+      </div>
+
+      <p style="font-size: 13px; color: #444; margin: 10px 0;">
+        "Desde que llegaste a mi vida, cada dia fue un dia lleno de risas y anécdotas"
+      </p>
+
+      <p style="font-size: 11px; color: #888; margin-top: 15px;">Click sobre cada corazón</p>
+      
+      <div class="heart-buttons">
+        <div class="heart-btn" onclick="showView('view-letter')">🩵</div>
+        <div class="heart-btn" onclick="showView('view-trophy')">🩵</div>
+        <div class="heart-btn" onclick="showView('view-music')">🩵</div>
+      </div>
+    </div>
+
+    <button class="btn-back" onclick="showView('view-keychain')">VOLVER</button>
+  </div>
+
+  <!-- VISTA 4: CARTA DE AMISTAD -->
+  <div id="view-letter" class="views">
+    <h3 style="color: #003366; margin-bottom: 15px;">Una carta para ti...</h3>
+    
+    <div class="flame-box">
+      <p style="font-weight: bold; color: #e60000; margin-bottom: 10px;">Palabras que quiero dedicarte</p>
+      <p style="font-size: 14px; color: #333; line-height: 1.5;">
+        Mi mejor amigo Oliver<br><br>
+        Hoy quiero dedicarte algo especial porque eres muy especial para mí. Gracias por estar siempre en las buenas y en las malas.<br><br>
+        Contigo la amistad es una carrera llena de risas, buenas anécdotas y momentos inolvidables.<br><br>
+        ¡TE QUIERO MUCHO!
+      </p>
+      <p style="margin-top: 15px; font-weight: bold; font-size: 13px; text-align: right;">Con cariño de: Tu Amiga</p>
+    </div>
+
+    <button class="btn-back" onclick="showView('view-blister')">VOLVER</button>
+  </div>
+
+  <!-- VISTA 5: TROFEO -->
+  <div id="view-trophy" class="views">
+    <h3 style="color: #003366; margin-bottom: 15px;">Un detalle especial</h3>
+
+    <div class="flame-box">
+      <div style="font-size: 70px; text-align: center;">🏎‍</div>
+      <p style="font-size: 13px; color: #333; margin-top: 10px;">
+        ¡QUE IBA A SABER YO! QUE TE IBA A ENCONTRAR ENTRE CIELO GRIS 🌫️ Y LA SOLEDAD🫶🏻.
+      </p>
+    </div>
+
+    <div class="flame-box">
+      <div style="font-size: 50px; text-align: center;">🏆</div>
+      <p style="font-weight: bold; color: #e60000; text-align: center;">¡Eres el número 1!</p>
+      <p style="font-size: 13px; color: #333; text-align: center; margin-top: 5px;">
+        ¡MI MEJOR AMIGO! AUNQUE AVECES ERES MEDIO MENSO 🫶🏻TE QUIERO MUCHO🫶🏻
+      </p>
+    </div>
+
+    <button class="btn-back" onclick="showView('view-blister')">VOLVER</button>
+  </div>
+
+  <!-- VISTA 6: MÚSICA -->
+  <div id="view-music" class="views">
+    <h3 style="color: #003366; margin-bottom: 15px;">Te las dedico</h3>
+
+    <div class="flame-box" style="text-align: center;">
+      <p style="font-size: 13px; color: #555; margin-bottom: 10px;">Cada vez que veo estos videos pienso en tí</p>
+      
+      <div style="font-size: 60px; margin: 10px 0;">📽️</div>
+
+      <video controls style="width: 100%; margin-top: 10px;">
+        <source src="video1.mp4" type="video/mp4">
+      </video>
+      <video controls style="width: 100%; margin-top: 10px;">
+        <source src="video2.mp4" type="video/mp4">
+      </video>
+      <video controls style="width: 100%; margin-top: 10px;">
+        <source src="video3.mp4" type="video/mp4">
+      </video>
+      <video controls style="width: 100%; margin-top: 10px;">
+        <source src="video4.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <button class="btn-back" onclick="showView('view-blister')">VOLVER</button>
+  </div>
+
+</div>
+
+<script>
+  let pin = "";
+  const targetPin = "1234"; // Contraseña de acceso
+
+  function addPin(val) {
+    if (pin.length < 4) {
+      pin += val;
+      renderPin();
+      if (pin.length === 4) {
+        setTimeout(validatePin, 150);
+      }
+    }
+  }
+
+  function backspacePin() {
+    if (pin.length > 0) {
+      pin = pin.slice(0, -1);
+      renderPin();
+    }
+  }
+
+  function clearPin() {
+    pin = "";
+    renderPin();
+  }
+
+  function renderPin() {
+    for (let i = 1; i <= 4; i++) {
+      const box = document.getElementById(`b${i}`);
+      if (i <= pin.length) {
+        box.textContent = pin[i - 1]; // Muestra el número ingresado
+      } else {
+        box.textContent = "";
+      }
+    }
+  }
+
+  function validatePin() {
+    if (pin === targetPin) {
+      showView('view-keychain');
+    } else {
+      alert("Contraseña incorrecta. Inténtalo de nuevo.");
+      clearPin();
+    }
+  }
+
+  function showView(viewId) {
+    const allViews = document.querySelectorAll('.views');
+    allViews.forEach(v => v.classList.remove('active'));
+    document.getElementById(viewId).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
